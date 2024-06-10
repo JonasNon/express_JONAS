@@ -6,6 +6,7 @@ const parser = require('body-parser')
 
 
 const { users } = require('./state')
+let counter = users.length
 
 /* BEGIN - create routes here */
 
@@ -37,6 +38,10 @@ app.get("/users/:id", (req, res) => {
 // // the POST Method
 app.post("/users", (req, res) => {  
   users.push(req.query)
+  console.log(users[users.length-1]["_id"])
+  if (users[users.length-1]["_id"] == undefined) {
+    users[users.length-1] = {"_id":users.length-1, ...users[users.length-1]}
+  }
   return res.json(users[users.length-1])
 })
 
